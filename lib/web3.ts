@@ -2,7 +2,26 @@
 import { ethers } from "ethers";
 import ReportStorageABI from "../smart-contract/build/contracts/ReportStorage.json";
 
-const CONTRACT_ADDRESS = "0x664B7E501212bF46b19f0eC0e985B9EC972224af";
+// Extend Window interface to include ethereum
+declare global {
+  interface Window {
+    // We're using a simplified type for ethereum provider
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ethereum: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      request: (args: { method: string; params?: any[] }) => Promise<any>;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      on: (eventName: string, callback: (...args: any[]) => void) => void;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      removeListener: (eventName: string, callback: (...args: any[]) => void) => void;
+      selectedAddress: string | undefined;
+      isMetaMask?: boolean;
+      chainId?: string;
+    };
+  }
+}
+
+const CONTRACT_ADDRESS = "0x6c140d512Dd29017D70a7ca9B255645293F8F300";
 const CLOUDINARY_UPLOAD_PRESET = "sample";
 const CLOUDINARY_CLOUD_NAME = "dyj3rywju";
 
